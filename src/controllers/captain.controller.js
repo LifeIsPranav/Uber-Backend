@@ -68,3 +68,8 @@ export const getCaptainProfile = async (req, res) => {
   const captain = req.captain;
   res.status(200).json(captain);
 }
+
+export const logoutCaptain = (req, res) => {
+  res.clearCookie("token");
+  res.status(200).json({ message: "Logged out successfully" });
+}
