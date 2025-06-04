@@ -20,6 +20,6 @@ app.get('/', (req, res) => {
   res.send('Hello, Express!');
 });
 
-app.use("/api/v1/user", userRoutes)
+app.use("/api/v1/users", userRoutes)
 
 export default app;
