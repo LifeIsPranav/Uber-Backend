@@ -57,9 +57,14 @@ export const loginCaptain = async (req, res) => {
 
     res.cookie("token", captain.generateAuthToken());
     res.status(200).json({ captain, token }); 
-    
+
   } catch (error) {
     console.error("Error in loginCaptain:", error);
     res.status(500).json({ message: "Internal server error" });
   }
+}
+
+export const getCaptainProfile = async (req, res) => {
+  const captain = req.captain;
+  res.status(200).json(captain);
 }
