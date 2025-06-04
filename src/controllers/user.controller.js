@@ -1,7 +1,7 @@
+import { validationResult } from "express-validator";
 
 import userModel from "../models/user.models.js";
 import { createUser } from "../services/user.services.js";
-import { validationResult } from "express-validator";
 
 export const registerUser = async (req, res) => {
   try{
@@ -64,4 +64,9 @@ export const loginUser = async (req, res) => {
 
 export const getUserProfile = async (req, res) => {
  res.status(200).json({ user: req.user });
+}
+
+export const logoutUser = async (req, res) => {
+  res.clearCookie("token");
+  res.status(200).json({ message: "Logged out successfully" });
 }
