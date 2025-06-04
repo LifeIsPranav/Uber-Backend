@@ -37,3 +37,29 @@ export const registerCaptain = async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 }
+
+export const loginCaptain = async (req, res) => {
+  try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) { 
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    const { email, password } = req.body;
+    const captain = await captainModel.findOne({ email });
+    if (!captain) {
+      return res.status(400).json({ message: "Invalid email or password" });
+    } 
+    const isPasswordValid = await captainModel.comparePassword(password, captain.password);
+    if (!isPasswordValid) {
+      return res.status(400).json({ message: "Invalid email or password" });
+    }
+
+    res.cookie("token", captain.generateAuthToken());
+    res.status(200).json({ captain, token }); 
+    
+  } catch (error) {
+    console.error("Error in loginCaptain:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+}
