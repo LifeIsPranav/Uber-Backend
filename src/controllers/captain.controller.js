@@ -46,16 +46,17 @@ export const loginCaptain = async (req, res) => {
     }
 
     const { email, password } = req.body;
-    const captain = await captainModel.findOne({ email });
+    const captain = await captainModel.findOne({ email }).select("+password");;
     if (!captain) {
       return res.status(400).json({ message: "Invalid email or password" });
     } 
-    const isPasswordValid = await captainModel.comparePassword(password, captain.password);
+    const isPasswordValid = await captain.comparePassword(password);
     if (!isPasswordValid) {
       return res.status(400).json({ message: "Invalid email or password" });
     }
 
-    res.cookie("token", captain.generateAuthToken());
+    const token = captain.generateAuthToken();
+    res.cookie("token", token);
     res.status(200).json({ captain, token }); 
 
   } catch (error) {
