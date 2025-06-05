@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import express from 'express';
 import cookieParser from 'cookie-parser';
 
+import mapsRoutes from './routes/maps.routes.js';
 import userRoutes from './routes/user.routes.js';
 import { connectDb } from './config/db.config.js';
 import captainRouter from './routes/captain.routes.js';
@@ -23,5 +24,7 @@ app.get('/', (req, res) => {
 
 app.use("/api/v1/users", userRoutes)
 app.use("/api/v1/captain", captainRouter)
+
+app.use("/api/v1/maps", mapsRoutes)
 
 export default app;
