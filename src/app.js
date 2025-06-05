@@ -6,6 +6,7 @@ import cookieParser from 'cookie-parser';
 import mapsRoutes from './routes/maps.routes.js';
 import userRoutes from './routes/user.routes.js';
 import { connectDb } from './config/db.config.js';
+import ridesRoutes from './routes/rides.routes.js';
 import captainRouter from './routes/captain.routes.js';
 
 const app = express();
@@ -26,5 +27,6 @@ app.use("/api/v1/users", userRoutes)
 app.use("/api/v1/captain", captainRouter)
 
 app.use("/api/v1/maps", mapsRoutes)
+app.use('/api/v1/rides', ridesRoutes)
 
 export default app;
